@@ -8,4 +8,13 @@ async function registerProductServices(
   return newProductServices.dataValues;
 }
 
-export default registerProductServices;
+async function findProductServices(): Promise<Product[]> {
+  const productsServices = await ProductModel.findAll();
+  const allProducts = productsServices.map((p) => p.dataValues);
+  return allProducts;
+}
+
+export default {
+  registerProductServices,
+  findProductServices,
+};
