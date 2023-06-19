@@ -1,20 +1,17 @@
-import ProductModel, { ProductInputtableTypes } from '../database/models/product.model';
+import ProductModel from '../database/models/product.model';
 import { Product } from '../types/Product';
 
-async function registerProductServices(
-  product: ProductInputtableTypes,
-): Promise<Product> {
-  const newProductServices = await ProductModel.create(product);
-  return newProductServices.dataValues;
-}
+const createProducts = async ({ name, price, orderId }: Product):Promise<Product> => {
+  const prod = await ProductModel.create({ name, price, orderId });
+  return prod.dataValues;
+};
 
-async function findProductServices(): Promise<Product[]> {
-  const productsServices = await ProductModel.findAll();
-  const allProducts = productsServices.map((p) => p.dataValues);
-  return allProducts;
-}
+const getAllProducts = async ():Promise<object[]> => {
+  const prods = await ProductModel.findAll();
+  return prods;
+};
 
-export default {
-  registerProductServices,
-  findProductServices,
+export default { 
+  createProducts,
+  getAllProducts,
 };
